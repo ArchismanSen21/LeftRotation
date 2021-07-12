@@ -1,36 +1,43 @@
-import java.util.Scanner;
+import java.util.*;
+import java.lang.System;
 
-public class Leftrotation_array
-{
-    public static void rotateLeft(int ar[],int x,int n)
-    {
-        int t[]=new int[x];
-        for(int i=0;i<x;i++)
-            t[i]=ar[i];
-        for(int i=x;i<n;i++)
-            ar[i-x]=ar[i];
-        for(int i=0;i<x;i++)
-            ar[i+n-x]=t[i];
+public class Solution {
+    
+    public static int[] rotateArray(int[] arr, int d){
+        // Because the constraints state d < n, we need not concern ourselves with shifting > n units.
+        int n = arr.length;
+        
+        // Create new array for rotated elements:
+        int[] rotated = new int[n]; 
+        
+        // Copy segments of shifted elements to rotated array:
+        System.arraycopy(arr, d, rotated, 0, n - d);
+        System.arraycopy(arr, 0, rotated, n - d, d);
+
+        return rotated;
     }
-    public static void main(String[] args)
-    {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter the number of elements : ");
-        int n = sc.nextInt();
-        int[] ar = new int[n];
-        System.out.println("Enter the elements in the array : ");
-        for(int i=0;i<n;i++)
-            ar[i]=sc.nextInt();
-            System.out.println("Print the array before modification : ");
-            for(int i=0;i<n;i++)
-                System.out.print(ar[i]+" ");
-            System.out.println();
-            System.out.println("Enter the inder around which the array will rotate : ");
-            int x = sc.nextInt();
-            rotateLeft(ar,x,n);
-            System.out.println("Print the array after modification : ");
-            for(int i=0;i<n;i++)
-                System.out.print(ar[i]+" ");
-            System.out.println();
-    }
+    
+    public static void main(String[] args) {
+        
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        int d = scanner.nextInt();
+        int[] numbers = new int[n];
+        
+        // Fill initial array:
+        for(int i = 0; i < n; i++){
+            numbers[i] = scanner.nextInt();
+        }
+        scanner.close();
+        
+        // Rotate array by d elements:
+        numbers = rotateArray(numbers, d);
+        
+        // Print array's elements as a single line of space-separated values:
+        for(int i : numbers) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
+    } 
+        
 }
